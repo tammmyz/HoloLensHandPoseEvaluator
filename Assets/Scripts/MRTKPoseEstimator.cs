@@ -1,7 +1,6 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
-//using Microsoft.MixedReality.OpenXR;
 
 public class MRTKPoseEstimator : IHandPose
 {
@@ -74,7 +73,7 @@ public class MRTKPoseEstimator : IHandPose
         {
             wristPos = pose.Position;
         }
-        Debug.Log($"thumbPos0: {thumbPos[0]}\nindexPos1: {indexPos[1]}\nmiddlePos2: {middlePos[2]}\nringPos3: {ringPos[3]}\npinkyPos4: {pinkyPos[4]}\nwrist: {wristPos}");
+        //Debug.Log($"thumbPos0: {thumbPos[0]}\nindexPos1: {indexPos[1]}\nmiddlePos2: {middlePos[2]}\nringPos3: {ringPos[3]}\npinkyPos4: {pinkyPos[4]}\nwrist: {wristPos}");
     }
 
     private void storeJointPose(TrackedHandJoint[] jointGroup, Vector3[] handPart, Handedness handedness)

@@ -14,6 +14,7 @@ public class HandTracking1 : MonoBehaviour
     void Update()
     {
         mrtk_pe.updatePose();
+        Debug.Log(mrtk_pe.toTxt());
     }
 
 }
