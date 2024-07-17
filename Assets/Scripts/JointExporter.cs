@@ -19,10 +19,11 @@ public class JointExporter
         exportPath = "Assets/Data/";
 #else
         exportPath = Path.Combine(Application.persistentDataPath, "ModelCompData/");
-        if (!Directory.Exists(exportPath)) {
+#endif
+        if (!Directory.Exists(exportPath))
+        {
             Directory.CreateDirectory(exportPath);
         }
-#endif
         filepath = getFilepath(exportPath, namingPrefix);
         Debug.Log(filepath);
         writer = new StreamWriter(filepath, true);
