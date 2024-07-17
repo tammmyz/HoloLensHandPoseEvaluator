@@ -8,13 +8,21 @@ public class JointExporter
     private List<Vector3[]> joints; // keep now for debugging
 
     [SerializeField]
-    private string exportPath = "Assets/Data/";
+    private string exportPath;
     private StreamWriter writer;
     private string filepath;
 
     public JointExporter(string namingPrefix)
     {
         Debug.Log("Initialized jointExporter");
+#if UNITY_EDITOR
+        exportPath = "Assets/Data/";
+#else
+        exportPath = Path.Combine(Application.persistentDataPath, "ModelCompData/");
+        if (!Directory.Exists(exportPath)) {
+            Directory.CreateDirectory(exportPath);
+        }
+#endif
         filepath = getFilepath(exportPath, namingPrefix);
         Debug.Log(filepath);
         writer = new StreamWriter(filepath, true);
