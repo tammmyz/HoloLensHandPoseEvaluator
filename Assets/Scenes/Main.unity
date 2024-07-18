@@ -333,7 +333,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -523,43 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab7bc6ef4cb6be45bef85f2d348c261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arCamera: {fileID: 963194227}
-  sphereMarker: {fileID: 3086417841620820945, guid: c71571a6b573beb4b916b4ab4d6236c0, type: 3}
-  squareMarker: {fileID: 5902848132463076061, guid: 6561e94a285f8224da73466700721d7f, type: 3}
-  thumbTipPos: {x: 0, y: 0, z: 0}
-  thumbDistalPos: {x: 0, y: 0, z: 0}
-  thumbProximalPos: {x: 0, y: 0, z: 0}
-  metaThumbPos: {x: 0, y: 0, z: 0}
-  indexTipPos: {x: 0, y: 0, z: 0}
-  indexDistalPos: {x: 0, y: 0, z: 0}
-  indexMiddlePos: {x: 0, y: 0, z: 0}
-  indexKnucklePos: {x: 0, y: 0, z: 0}
-  metaIndexPos: {x: 0, y: 0, z: 0}
-  middleTipPos: {x: 0, y: 0, z: 0}
-  middleDistalPos: {x: 0, y: 0, z: 0}
-  middleMiddlePos: {x: 0, y: 0, z: 0}
-  middleKnucklePos: {x: 0, y: 0, z: 0}
-  metaMiddlePos: {x: 0, y: 0, z: 0}
-  ringTipPos: {x: 0, y: 0, z: 0}
-  ringDistalPos: {x: 0, y: 0, z: 0}
-  ringMiddlePos: {x: 0, y: 0, z: 0}
-  ringKnucklePos: {x: 0, y: 0, z: 0}
-  metaRingPos: {x: 0, y: 0, z: 0}
-  pinkyTipPos: {x: 0, y: 0, z: 0}
-  pinkyDistalPos: {x: 0, y: 0, z: 0}
-  pinkyMiddlePos: {x: 0, y: 0, z: 0}
-  pinkyKnucklePos: {x: 0, y: 0, z: 0}
-  metaPinkyPos: {x: 0, y: 0, z: 0}
-  wristPos: {x: 0, y: 0, z: 0}
-  wristRot: {x: 0, y: 0, z: 0, w: 0}
-  palmPos: {x: 0, y: 0, z: 0}
-  palmRot:
-    value:
-      x: 0
-      y: 0
-      z: 0
-      w: 0
-  handedness: 0
+  reps: 200
 --- !u!4 &2132600126
 Transform:
   m_ObjectHideFlags: 0
