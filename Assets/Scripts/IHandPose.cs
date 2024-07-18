@@ -1,47 +1,61 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
-using System.Net.NetworkInformation;
 using UnityEngine;
 
+// General base class for hand pose estimation models
+// Inherited by MRTKPoseEstimator
 public class IHandPose
 {
+    // Array of joint coordinates grouped by fingers
     public Vector3[] thumbPos;
     public Vector3[] indexPos;
     public Vector3[] middlePos;
     public Vector3[] ringPos;
     public Vector3[] pinkyPos;
+
+    // Joint coordinate for the wrist
     public Vector3 wristPos;
+
+    // Whether the specified hand is Right or Left
     public Handedness handedness;
 
+    // Base method to update pose, to be specified in inherited methods
     public virtual void updatePose() { }
 
+    // Method to format the pose estimation data as a JSON
+    // @Returns String formatted with joint and inference data
     public string toTxt()
     {
         string export = "{\n";
-        string prefix = "  ";
+        string indent = "  ";
         string timestamp = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
-        export += formatVector3List("thumb", thumbPos, prefix);
-        export += formatVector3List("index", indexPos, prefix);
-        export += formatVector3List("middle", middlePos, prefix);
-        export += formatVector3List("ring", ringPos, prefix);
-        export += formatVector3List("pinky", pinkyPos, prefix);
-        export += $"{prefix}\"wrist\": [{wristPos.x}, {wristPos.y}, {wristPos.z}],\n";
-        export += $"{prefix}\"timestamp\": \"{timestamp}\"\n";
+        export += formatVector3List("thumb", thumbPos, indent);
+        export += formatVector3List("index", indexPos, indent);
+        export += formatVector3List("middle", middlePos, indent);
+        export += formatVector3List("ring", ringPos, indent);
+        export += formatVector3List("pinky", pinkyPos, indent);
+        export += $"{indent}\"wrist\": [{wristPos.x}, {wristPos.y}, {wristPos.z}],\n";
+        export += $"{indent}\"timestamp\": \"{timestamp}\"\n";
         export += "}\n";
         return export;
     }
 
-    private string formatVector3List(string label, Vector3[] joints, string prefix="")
+    // Helper method for toTxt, formats a Vector3 array as JSON-formatted text
+    // @param label: key value for vector, assuming "key": [vector] in JSON format
+    // @param joints: vector array to be reformatted
+    // @param indent: value used as indentation
+    // @Returns String representing formatted array
+    private string formatVector3List(string label, Vector3[] joints, string indent="")
     {
-        string export = $"{prefix}\"{label}\": [\n";
+        string export = $"{indent}\"{label}\": [\n";
         Vector3 joint;
         for (int i = 0; i < joints.Length - 1; i++)
         {
             joint = joints[i];
-            export += $"{prefix}{prefix}[{joint.x}, {joint.y}, {joint.z}],\n";
+            export += $"{indent}{indent}[{joint.x}, {joint.y}, {joint.z}],\n";
         }
         joint = joints[joints.Length-1];
-        export += $"{prefix}{prefix}[{joint.x}, {joint.y}, {joint.z}]\n";
-        export += $"{prefix}],\n";
+        export += $"{indent}{indent}[{joint.x}, {joint.y}, {joint.z}]\n";
+        export += $"{indent}],\n";
         return export;
     }
 }

@@ -2,8 +2,10 @@ using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
 
+// Class for estimating hand pose using MRTK 2, inherits IHandPose
 public class MRTKPoseEstimator : IHandPose
 {
+    // Define arrays for enum hand joints to group by finger
     private TrackedHandJoint[] trackedThumb = new TrackedHandJoint[]
     {
         TrackedHandJoint.ThumbTip,
@@ -50,6 +52,8 @@ public class MRTKPoseEstimator : IHandPose
 
     MixedRealityPose pose;
 
+    // Constructor method
+    // @param inHandedness: whether the tracked hand is Right or Left
     public MRTKPoseEstimator(Handedness inHandedness)
     {
         Debug.Log("Initialized MRTKPoseEstimator");
@@ -62,6 +66,7 @@ public class MRTKPoseEstimator : IHandPose
         handedness = inHandedness;
     }
 
+    // Updates joint coordinates for all tracked positions
     public override void updatePose()
     {
         storeJointPose(trackedThumb, thumbPos, handedness);
@@ -76,6 +81,10 @@ public class MRTKPoseEstimator : IHandPose
         //Debug.Log($"thumbPos0: {thumbPos[0]}\nindexPos1: {indexPos[1]}\nmiddlePos2: {middlePos[2]}\nringPos3: {ringPos[3]}\npinkyPos4: {pinkyPos[4]}\nwrist: {wristPos}");
     }
 
+    // Helper method for updatePose(), populates Vector3 array with MRTK pose data
+    // @param jointGroup: array of desired joints (enums)
+    // @param handPart: array of joint coordinates corresponding to a group of enums
+    // @param handedness:  whether the tracked hand is Right or Left
     private void storeJointPose(TrackedHandJoint[] jointGroup, Vector3[] handPart, Handedness handedness)
     {
         for (int i = 0; i < jointGroup.Length; i++)

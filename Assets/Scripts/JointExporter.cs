@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+// Class for writing the joints from each estimated hand pose to a JSON file
 public class JointExporter
 {
-    private List<Vector3[]> joints; // keep now for debugging
-
+    // Directory to save the file to be written
     [SerializeField]
     private string exportPath;
+
+    // StreamWriter object to write to path
     private StreamWriter writer;
+
+    // Complete filepath of the file to be writeen
     private string filepath;
 
+    // Constructor method
+    // @param namingPrefix: naming prefix for the file
     public JointExporter(string namingPrefix)
     {
         Debug.Log("Initialized jointExporter");
+        // Determine path to write file to based on testing in editor
+        // vs actual use on the HoloLens
 #if UNITY_EDITOR
         exportPath = "Assets/Data/";
 #else
@@ -29,17 +37,19 @@ public class JointExporter
         writer = new StreamWriter(filepath, true);
     }
 
+    // Writes new joint to the end of the file
+    // @param joint: JSON formatted text to write to file
     public void appendJoint(string joint)
     {
         writer.Write(joint);
         writer.Flush();
     }
 
-    public List<Vector3[]> getJoints()
-    {
-        return joints;
-    }
 
+    // Generate filename based on naming prefix and append to desired
+    // @param exportPath: directory to save the file
+    // @param prefix: naming prefix for the file
+    // @Returns Complete filepath for file
     private string getFilepath(string exportPath, string prefix)
     {
         var currentDate = System.DateTime.Now.ToString("_yyyyMMdd_HHmmss");
