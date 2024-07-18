@@ -1,20 +1,20 @@
+using HandTracker;
 using Microsoft.MixedReality.Toolkit.Utilities;
 using UnityEngine;
 
-public class HandTracking1 : MonoBehaviour
-
+public class HandRecording : MonoBehaviour
 {
     public int reps = 200;
     private int i = 0;
-    private MRTKPoseEstimator mrtk_pe;
+    private MRTKHandTracker mrtk_ht;
     private JointExporter jointExporter;
 
     void Start()
     {
-        mrtk_pe = new MRTKPoseEstimator(Handedness.Right);
+        mrtk_ht = new MRTKHandTracker(Handedness.Right);
         jointExporter = new JointExporter("test");
-        mrtk_pe.updatePose();
-        var joint = mrtk_pe.toTxt(i,"\n");
+        mrtk_ht.updatePose();
+        var joint = mrtk_ht.toTxt(i,"\n");
         jointExporter.appendJoint(joint);
         Debug.Log(joint);
     }
@@ -26,8 +26,8 @@ public class HandTracking1 : MonoBehaviour
         {
             if (i / reps > 1)
             {
-                mrtk_pe.updatePose();
-                var joint = mrtk_pe.toTxt(i / reps);
+                mrtk_ht.updatePose();
+                var joint = mrtk_ht.toTxt(i / reps);
                 jointExporter.appendJoint(joint);
                 Debug.Log(joint);
             }
