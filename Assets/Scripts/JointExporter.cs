@@ -37,6 +37,12 @@ public class JointExporter
         writer.Flush();
     }
 
+    public void appendHandedness(string strHandedness)
+    {
+        writer.Write(strHandedness);
+        writer.Flush();
+    }
+
     // Writes new joint to the end of the file
     // @param joint: JSON formatted text to write to file
     public void appendJoint(string joint)

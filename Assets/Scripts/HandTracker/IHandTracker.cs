@@ -1,4 +1,5 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
+using System;
 using System.Diagnostics;
 using UnityEngine;
 
@@ -27,11 +28,17 @@ namespace HandTracker
         // @Returns Model inference time in milliseconds
         public virtual float updatePose() { return 0; }
 
+        private string indent = "  ";
+
+        public string toJSONHandedness()
+        {
+            return $"\n{indent}\"handedness\": \"{handedness}\"";
+        }
+
         // Method to format the pose estimation data as a JSON
         // @Returns String formatted with joint and inference data
-        public string toTxt(int i, float inferenceTime=-9999, string lastLineEnd=",\n")
+        public string toJSON(int i, float inferenceTime=-9999, string lastLineEnd=",\n")
         {
-            string indent = "  ";
             string timestamp = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
             string export = $"{lastLineEnd}{indent}\"{i}\": {{\n";
             export += indent + formatVector3List("thumb", thumbPos, indent + indent);

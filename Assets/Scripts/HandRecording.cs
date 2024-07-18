@@ -27,15 +27,7 @@ public class HandRecording : MonoBehaviour
             if (i % reps == 0)
             {
                 var tInf = mrtk_ht.updatePose();
-                if (!first)
-                {
-                    joint = mrtk_ht.toTxt(i / reps, tInf);
-                }
-                else
-                {
-                    joint = mrtk_ht.toTxt(i / reps, tInf, "\n");
-                    first = false;
-                }
+                joint = mrtk_ht.toJSON(i / reps, tInf);
                 jointExporter.appendJoint(joint);
                 Debug.Log(joint);
             }
@@ -47,12 +39,16 @@ public class HandRecording : MonoBehaviour
     {
         Debug.Log("Set right hand");
         mrtk_ht = new MRTKHandTracker(Handedness.Right);
+        var handedness = mrtk_ht.toJSONHandedness();
+        jointExporter.appendHandedness(handedness);
     }
 
     public void setLeftHand()
     {
         Debug.Log("Set left hand");
         mrtk_ht = new MRTKHandTracker(Handedness.Left);
+        var handedness = mrtk_ht.toJSONHandedness();
+        jointExporter.appendHandedness(handedness);
     }
 
     public void setReady()
