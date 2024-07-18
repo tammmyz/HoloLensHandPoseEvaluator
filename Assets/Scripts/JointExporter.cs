@@ -35,6 +35,8 @@ public class JointExporter
         filepath = getFilepath(exportPath, namingPrefix);
         Debug.Log(filepath);
         writer = new StreamWriter(filepath, true);
+        writer.Write("{");
+        writer.Flush();
     }
 
     // Writes new joint to the end of the file
@@ -44,7 +46,6 @@ public class JointExporter
         writer.Write(joint);
         writer.Flush();
     }
-
 
     // Generate filename based on naming prefix and append to desired
     // @param exportPath: directory to save the file
@@ -56,8 +57,10 @@ public class JointExporter
         return exportPath + prefix + currentDate + ".json";
     }
 
-    public void Destroy()
+    public void Dispose()
     {
+        writer.Write("\n}");
+        writer.Flush();
         writer.Dispose();
     }
 }

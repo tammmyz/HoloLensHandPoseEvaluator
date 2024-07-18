@@ -23,19 +23,19 @@ public class IHandPose
 
     // Method to format the pose estimation data as a JSON
     // @Returns String formatted with joint and inference data
-    public string toTxt()
+    public string toTxt(int i, string lastLineEnd=",\n")
     {
-        string export = "{\n";
         string indent = "  ";
         string timestamp = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
-        export += formatVector3List("thumb", thumbPos, indent);
-        export += formatVector3List("index", indexPos, indent);
-        export += formatVector3List("middle", middlePos, indent);
-        export += formatVector3List("ring", ringPos, indent);
-        export += formatVector3List("pinky", pinkyPos, indent);
-        export += $"{indent}\"wrist\": [{wristPos.x}, {wristPos.y}, {wristPos.z}],\n";
-        export += $"{indent}\"timestamp\": \"{timestamp}\"\n";
-        export += "}\n";
+        string export = $"{lastLineEnd}{indent}\"{i}\": {{\n";
+        export += indent + formatVector3List("thumb", thumbPos, indent + indent);
+        export += indent + formatVector3List("index", indexPos, indent + indent);
+        export += indent + formatVector3List("middle", middlePos, indent + indent);
+        export += indent + formatVector3List("ring", ringPos, indent + indent);
+        export += indent + formatVector3List("pinky", pinkyPos, indent + indent);
+        export += $"{indent}{indent}\"wrist\": [{wristPos.x}, {wristPos.y}, {wristPos.z}],\n";
+        export += $"{indent}{indent}\"timestamp\": \"{timestamp}\"\n";
+        export += $"{indent}}}";
         return export;
     }
 

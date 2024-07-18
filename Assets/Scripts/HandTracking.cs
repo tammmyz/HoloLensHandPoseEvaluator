@@ -6,21 +6,36 @@ public class HandTracking1 : MonoBehaviour
 {
     MRTKPoseEstimator mrtk_pe;
     JointExporter jointExporter;
+    int i = 0;
 
     void Start()
     {
         mrtk_pe = new MRTKPoseEstimator(Handedness.Right);
         jointExporter = new JointExporter("test");
         mrtk_pe.updatePose();
-        string joint = mrtk_pe.toTxt();
+        var joint = mrtk_pe.toTxt(i,"\n");
         jointExporter.appendJoint(joint);
-        Debug.Log("Finished");
+        Debug.Log(joint);
     }
 
     void Update()
     {
-        //mrtk_pe.updatePose();
-        //Debug.Log(mrtk_pe.toTxt());
+        // Not update every frame
+        if (i % 200 == 0)
+        {
+            if (i / 1000 > 1)
+            {
+                mrtk_pe.updatePose();
+                var joint = mrtk_pe.toTxt(i / 1000);
+                jointExporter.appendJoint(joint);
+                Debug.Log(joint);
+            }
+        }
+        i++;
     }
 
+    private void OnDestroy()
+    {
+        jointExporter.Dispose();
+    }
 }
