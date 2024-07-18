@@ -2,11 +2,10 @@ using Microsoft.MixedReality.Toolkit.Utilities;
 using System.Diagnostics;
 using UnityEngine;
 
-
 namespace HandTracker
 {
     // General base class for hand pose estimation models
-    // Inherited by MRTKPoseEstimator
+    // Inherited by MRTKHandTracker
     public class IHandTracker
     {
         // Array of joint coordinates grouped by fingers
