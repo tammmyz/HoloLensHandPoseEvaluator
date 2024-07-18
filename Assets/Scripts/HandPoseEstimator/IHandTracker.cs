@@ -1,4 +1,5 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
+using System.Diagnostics;
 using UnityEngine;
 
 
@@ -21,15 +22,15 @@ namespace HandTracker
         // Whether the specified hand is Right or Left
         public Handedness handedness;
 
-        // Time required for model inference
-        public int inferenceTime;
+        public Stopwatch sw = new Stopwatch();
 
         // Base method to update pose, to be specified in inherited methods
-        public virtual void updatePose() { }
+        // @Returns Model inference time in milliseconds
+        public virtual float updatePose() { return 0; }
 
         // Method to format the pose estimation data as a JSON
         // @Returns String formatted with joint and inference data
-        public string toTxt(int i, string lastLineEnd=",\n")
+        public string toTxt(int i, float inferenceTime=-9999, string lastLineEnd=",\n")
         {
             string indent = "  ";
             string timestamp = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
@@ -40,6 +41,9 @@ namespace HandTracker
             export += indent + formatVector3List("ring", ringPos, indent + indent);
             export += indent + formatVector3List("pinky", pinkyPos, indent + indent);
             export += $"{indent}{indent}\"wrist\": [{wristPos.x}, {wristPos.y}, {wristPos.z}],\n";
+            if (inferenceTime >= 0) {
+                export += $"{indent}{indent}\"inference_time\": {inferenceTime},\n";
+            }
             export += $"{indent}{indent}\"timestamp\": \"{timestamp}\"\n";
             export += $"{indent}}}";
             return export;

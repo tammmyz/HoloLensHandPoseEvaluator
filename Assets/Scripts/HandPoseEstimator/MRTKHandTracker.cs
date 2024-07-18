@@ -1,7 +1,7 @@
 using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Input;
 using UnityEngine;
-using System.Diagnostics;
+using Debug = UnityEngine.Debug;
 
 namespace HandTracker
 {
@@ -67,13 +67,12 @@ namespace HandTracker
             pinkyPos = new Vector3[trackedPinky.Length];
             wristPos = new Vector3();
             handedness = inHandedness;
-            inferenceTime = 0;
         }
 
         // Updates joint coordinates for all tracked positions
-        public override void updatePose()
+        public override float updatePose()
         {
-            Stopwatch sw = new Stopwatch();
+            sw.Reset();
             sw.Start();
             storeJointPose(trackedThumb, thumbPos, handedness);
             storeJointPose(trackedIndex, indexPos, handedness);
@@ -86,7 +85,7 @@ namespace HandTracker
             }
             //Debug.Log($"thumbPos0: {thumbPos[0]}\nindexPos1: {indexPos[1]}\nmiddlePos2: {middlePos[2]}\nringPos3: {ringPos[3]}\npinkyPos4: {pinkyPos[4]}\nwrist: {wristPos}");
             sw.Stop();
-            inferenceTime = (int)sw.ElapsedMilliseconds;
+            return (float)sw.ElapsedMilliseconds;
         }
 
         // Helper method for updatePose(), populates Vector3 array with MRTK pose data
