@@ -34,16 +34,15 @@ public class JointExporter
         Debug.Log(filepath);
         writer = new StreamWriter(filepath, true);
         writer.Write("{");
-        writer.Close();
+        writer.Flush();
     }
 
     // Writes new entry to the end of the JSON file
     // @param entry: JSON formatted text to write to file
     public void appendToFile(string entry)
     {
-        writer = new StreamWriter(filepath, true);
         writer.Write(entry);
-        writer.Close();
+        writer.Flush();
     }
 
     // Generate filename based on naming prefix and append to desired
@@ -58,7 +57,6 @@ public class JointExporter
 
     public void Dispose()
     {
-        writer = new StreamWriter(filepath, true);
         writer.Write("\n}");
         writer.Close();
     }
