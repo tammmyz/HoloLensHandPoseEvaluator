@@ -30,14 +30,14 @@ namespace HandTracker
 
         private string indent = "  ";
 
-        public string toJSONHandedness()
+        public string attributeToJSON(string key, string value, string lastLineEnd=",\n")
         {
-            return $"\n{indent}\"handedness\": \"{handedness}\"";
+            return $"{lastLineEnd}{indent}\"{key}\": \"{value}\"";
         }
 
         // Method to format the pose estimation data as a JSON
         // @Returns String formatted with joint and inference data
-        public string toJSON(int i, float inferenceTime=-9999, string lastLineEnd=",\n")
+        public string jointToJSON(int i, float inferenceTime=-9999, string lastLineEnd=",\n")
         {
             string timestamp = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
             string export = $"{lastLineEnd}{indent}\"{i}\": {{\n";

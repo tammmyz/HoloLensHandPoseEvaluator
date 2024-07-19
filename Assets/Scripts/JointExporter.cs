@@ -37,9 +37,9 @@ public class JointExporter
         writer.Flush();
     }
 
-    public void appendHandedness(string strHandedness)
+    public void appendAttribute(string entry)
     {
-        writer.Write(strHandedness);
+        writer.Write(entry);
         writer.Flush();
     }
 
