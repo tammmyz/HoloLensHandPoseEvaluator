@@ -72,4 +72,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Joint JSON data files
-Assets/Data/*
+Assets/Data*
+
+# WSA Test Certificate
+Assets/WSATestCertificate.pfx*

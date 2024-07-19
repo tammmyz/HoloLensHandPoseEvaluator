@@ -53,6 +53,6 @@ public class StatusUpdater : MonoBehaviour
     private void updateStatusText()
     {
         statusText = $"Selected hand: {selectedHand}\tRecording status: {recordingStatus}\tModels Selected: {modelSelected}";
-        tmpText.text = statusText;
+        GetComponent<TMP_Text>().text = statusText;
     }
 }
