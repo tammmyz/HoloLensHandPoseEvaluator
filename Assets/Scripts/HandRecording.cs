@@ -10,11 +10,13 @@ public class HandRecording : MonoBehaviour
     private int i = 0;
     private MRTKHandTracker mrtk_ht = null;
     private JointExporter jointExporter;
-    private Boolean ready = false;
-    private Boolean stop = false;
+    public Boolean ready { get; private set; }
+    public Boolean stop { get; private set; }
 
     void Start()
     {
+        ready = false;
+        stop = false;
         jointExporter = new JointExporter("test");
     }
 
