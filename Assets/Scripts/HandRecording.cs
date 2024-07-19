@@ -27,7 +27,7 @@ public class HandRecording : MonoBehaviour
             {
                 var tInf = mrtk_ht.updatePose();
                 joint = mrtk_ht.jointToJSON(i / reps, tInf);
-                jointExporter.appendJoint(joint);
+                jointExporter.appendToFile(joint);
                 Debug.Log(joint);
             }
             i++;
@@ -41,7 +41,7 @@ public class HandRecording : MonoBehaviour
             Debug.Log("Set right hand");
             mrtk_ht = new MRTKHandTracker(Handedness.Right);
             var handedness = mrtk_ht.attributeToJSON("handedness", "Right", "\n");
-            jointExporter.appendAttribute(handedness);
+            jointExporter.appendToFile(handedness);
         }
     }
 
@@ -52,7 +52,7 @@ public class HandRecording : MonoBehaviour
             Debug.Log("Set left hand");
             mrtk_ht = new MRTKHandTracker(Handedness.Left);
             var handedness = mrtk_ht.attributeToJSON("handedness", "Left", "\n");
-            jointExporter.appendAttribute(handedness);
+            jointExporter.appendToFile(handedness);
         }
     }
 
@@ -64,7 +64,7 @@ public class HandRecording : MonoBehaviour
             ready = true;
             var time = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
             var startTime = mrtk_ht.attributeToJSON("startTime", time);
-            jointExporter.appendAttribute(startTime);
+            jointExporter.appendToFile(startTime);
         }
     }
 
