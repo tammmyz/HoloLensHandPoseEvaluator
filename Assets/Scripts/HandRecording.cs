@@ -24,7 +24,7 @@ public class HandRecording : MonoBehaviour
     {
         if (!stop && mrtk_ht != null && ready) {
             string joint;
-            // Not update every frame
+            // Update joints every <reps> number of iterations
             if (i % reps == 0)
             {
                 var tInf = mrtk_ht.updatePose();
@@ -36,6 +36,7 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Set hand tracker to track right hand
     public void setRightHand()
     {
         if (mrtk_ht == null)
@@ -47,6 +48,7 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Set hand tracker to track left hand
     public void setLeftHand()
     {
         if (mrtk_ht == null)
@@ -58,6 +60,7 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Start recording hand joints
     public void setReady()
     {
         if (mrtk_ht != null && !ready)
@@ -70,17 +73,14 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Trigger stop sequence
     public void initiateStop()
     {
         if (ready && !stop)
         {
             Debug.Log("User initiated stop");
             stop = true;
+            jointExporter.writeFile();
         }
-    }
-
-    private void OnDestroy()
-    {
-        jointExporter.Dispose();
     }
 }
