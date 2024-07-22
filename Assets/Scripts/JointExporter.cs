@@ -62,15 +62,8 @@ public class JointExporter
 
     public void Dispose()
     {
-        if (writer == null)
-        {
-            writer = new StreamWriter(filepath);
-            writer.Write(handPosesJSON);
-            writer.Close();
-        }
-        else
-        {
-            writer.Dispose();
-        }
+        StreamWriter writer = new StreamWriter(filepath);
+        writer.Write(handPosesJSON);
+        writer.Close();
     }
 }
