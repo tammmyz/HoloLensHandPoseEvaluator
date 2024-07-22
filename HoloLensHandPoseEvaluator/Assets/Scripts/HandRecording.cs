@@ -63,8 +63,11 @@ public class HandRecording : MonoBehaviour
         {
             Debug.Log("User ready");
             ready = true;
-            var time = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            var startTime = mrtk_ht.attributeToJSON("startTime", time);
+            stop = false;
+            i = 0;
+            jointExporter.setFile();
+            string time = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            string startTime = mrtk_ht.attributeToJSON("startTime", time);
             jointExporter.appendToFile(startTime);
         }
     }
@@ -76,6 +79,7 @@ public class HandRecording : MonoBehaviour
         {
             Debug.Log("User initiated stop");
             stop = true;
+            ready = false;
             jointExporter.writeFile();
         }
     }

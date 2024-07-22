@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -11,6 +12,9 @@ public class JointExporter
     // Complete filepath of the file to be writeen
     private string filepath;
 
+    // Prefix for file naming
+    private string namingPrefix;
+
     // List of estimated hand pose joint JSON
     private string handPosesJSON;
 
@@ -18,19 +22,25 @@ public class JointExporter
     // @param namingPrefix: naming prefix for the file
     public JointExporter(string namingPrefix)
     {
+        this.namingPrefix = namingPrefix;
         Debug.Log("Initialized jointExporter");
         // Determine path to write file to based on testing in editor
         // vs actual use on the HoloLens
+        var dateFolder = DateTime.Now.ToString("yyyy-MM-dd/");
 #if UNITY_EDITOR
-        exportPath = "Assets/Data/";
+        exportPath = $"Assets/Data/{dateFolder}";
 #else
-        exportPath = Path.Combine(Application.persistentDataPath, "ModelCompData/");
+        exportPath = Path.Combine(Application.persistentDataPath, $"ModelCompData/{dateFolder}");
 #endif
         if (!Directory.Exists(exportPath))
         {
             Directory.CreateDirectory(exportPath);
         }
-        filepath = getFilepath(exportPath, namingPrefix);
+    }
+
+    public void setFile()
+    {
+        filepath = getFilepath(exportPath, this.namingPrefix);
         Debug.Log(filepath);
         handPosesJSON = "{";
     }
@@ -46,7 +56,7 @@ public class JointExporter
     public void writeFile()
     {
         StreamWriter writer = new StreamWriter(filepath);
-        writer.Write(handPosesJSON);
+        writer.Write(handPosesJSON + "\n}");
         writer.Close();
     }
 
@@ -56,14 +66,14 @@ public class JointExporter
     // @Returns Complete filepath for file
     private string getFilepath(string exportPath, string prefix)
     {
-        var currentDate = System.DateTime.Now.ToString("_yyyyMMdd_HHmmss");
+        var currentDate = DateTime.Now.ToString("_yyyyMMdd_HHmmss");
         return exportPath + prefix + currentDate + ".json";
     }
 
     public void Dispose()
     {
         StreamWriter writer = new StreamWriter(filepath);
-        writer.Write(handPosesJSON);
+        writer.Write(handPosesJSON + "\n}");
         writer.Close();
     }
 }
