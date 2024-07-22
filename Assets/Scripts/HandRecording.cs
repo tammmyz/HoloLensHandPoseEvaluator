@@ -79,6 +79,7 @@ public class HandRecording : MonoBehaviour
             jointExporter.writeFile();
         }
     }
+
     private void OnDestroy()
     {
         jointExporter.Dispose();

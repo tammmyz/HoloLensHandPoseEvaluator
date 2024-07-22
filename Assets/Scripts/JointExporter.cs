@@ -14,8 +14,6 @@ public class JointExporter
     // List of estimated hand pose joint JSON
     private string handPosesJSON;
 
-    private StreamWriter writer;
-
     // Constructor method
     // @param namingPrefix: naming prefix for the file
     public JointExporter(string namingPrefix)
@@ -47,9 +45,9 @@ public class JointExporter
     // Write recorded hand pose coordinates to file
     public void writeFile()
     {
-        writer = new StreamWriter(filepath);
+        StreamWriter writer = new StreamWriter(filepath);
         writer.Write(handPosesJSON);
-        writer.Flush();
+        writer.Close();
     }
 
     // Generate filename based on naming prefix and append to desired
