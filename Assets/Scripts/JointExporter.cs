@@ -8,11 +8,11 @@ public class JointExporter
     [SerializeField]
     private string exportPath;
 
-    // StreamWriter object to write to path
-    private StreamWriter writer;
-
     // Complete filepath of the file to be writeen
     private string filepath;
+
+    // List of estimated hand pose joint JSON
+    private string handPosesJSON;
 
     // Constructor method
     // @param namingPrefix: naming prefix for the file
@@ -32,17 +32,22 @@ public class JointExporter
         }
         filepath = getFilepath(exportPath, namingPrefix);
         Debug.Log(filepath);
-        writer = new StreamWriter(filepath, true);
-        writer.Write("{");
-        writer.Flush();
+        handPosesJSON = "{";
     }
 
     // Writes new entry to the end of the JSON file
     // @param entry: JSON formatted text to write to file
     public void appendToFile(string entry)
     {
-        writer.Write(entry);
-        writer.Flush();
+        handPosesJSON += entry;
+    }
+
+    // Write recorded hand pose coordinates to file
+    public void writeFile()
+    {
+        StreamWriter writer = new StreamWriter(filepath);
+        writer.Write(handPosesJSON);
+        writer.Close();
     }
 
     // Generate filename based on naming prefix and append to desired
@@ -57,7 +62,8 @@ public class JointExporter
 
     public void Dispose()
     {
-        writer.Write("\n}");
+        StreamWriter writer = new StreamWriter(filepath);
+        writer.Write(handPosesJSON);
         writer.Close();
     }
 }

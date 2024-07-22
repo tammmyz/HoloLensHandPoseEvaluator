@@ -32,6 +32,7 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Set hand tracker to track right hand
     public void setRightHand()
     {
         if (mrtk_ht == null)
@@ -43,6 +44,7 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Set hand tracker to track left hand
     public void setLeftHand()
     {
         if (mrtk_ht == null)
@@ -54,24 +56,27 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    // Start recording hand joints
     public void setReady()
     {
         if (mrtk_ht != null && !ready)
         {
             Debug.Log("User ready");
             ready = true;
-            var time = System.DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            var time = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ssZ");
             var startTime = mrtk_ht.attributeToJSON("startTime", time);
             jointExporter.appendToFile(startTime);
         }
     }
 
+    // Trigger stop sequence
     public void initiateStop()
     {
         if (ready && !stop)
         {
             Debug.Log("User initiated stop");
             stop = true;
+            jointExporter.writeFile();
         }
     }
 
