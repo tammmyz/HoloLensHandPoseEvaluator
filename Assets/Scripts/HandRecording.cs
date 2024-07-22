@@ -6,7 +6,6 @@ using Debug = UnityEngine.Debug;
 
 public class HandRecording : MonoBehaviour
 {
-    public int reps = 1;
     private int i = 0;
     private MRTKHandTracker mrtk_ht = null;
     private JointExporter jointExporter;
@@ -25,13 +24,10 @@ public class HandRecording : MonoBehaviour
         if (!stop && mrtk_ht != null && ready) {
             string joint;
             // Not update every frame
-            if (i % reps == 0)
-            {
-                var tInf = mrtk_ht.updatePose();
-                joint = mrtk_ht.jointToJSON(i / reps, tInf);
-                jointExporter.appendToFile(joint);
-                Debug.Log(joint);
-            }
+            var tInf = mrtk_ht.updatePose();
+            joint = mrtk_ht.jointToJSON(i, tInf);
+            jointExporter.appendToFile(joint);
+            Debug.Log(joint);
             i++;
         }
     }
