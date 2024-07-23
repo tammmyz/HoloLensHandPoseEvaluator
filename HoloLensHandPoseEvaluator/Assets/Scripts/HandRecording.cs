@@ -12,11 +12,13 @@ public class HandRecording : MonoBehaviour
     private string handedness;
     public Boolean ready { get; private set; }
     public Boolean stop { get; private set; }
+    public Boolean videoRecording { get; private set; }
 
     void Start()
     {
         ready = false;
         stop = false;
+        videoRecording = false;
         jointExporter = new JointExporter("test");
     }
 
@@ -29,6 +31,12 @@ public class HandRecording : MonoBehaviour
             joint = mrtk_ht.jointToJSON(i, tInf);
             jointExporter.appendToFile(joint);
             Debug.Log(joint);
+            if (videoRecording)
+            {
+                var startRecordingFlag = mrtk_ht.attributeToJSON("startRecordingFrame", i.ToString());
+                jointExporter.appendToFile(startRecordingFlag);
+                videoRecording = false;
+            }
         }
         i++;
     }
@@ -83,6 +91,13 @@ public class HandRecording : MonoBehaviour
         }
     }
 
+    public void setVideoRecording()
+    {
+        if (!videoRecording)
+        {
+            videoRecording = true;
+        }
+    }
     private void OnDestroy()
     {
         jointExporter.Dispose();

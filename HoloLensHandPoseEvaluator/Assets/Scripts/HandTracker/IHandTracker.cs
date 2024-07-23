@@ -30,7 +30,7 @@ namespace HandTracker
 
         private string indent = "  ";
 
-        public string attributeToJSON(string key, string value, string lastLineEnd=",\n")
+        public string attributeToJSON(string key, string value, string lastLineEnd=",\n", string startRec="")
         {
             return $"{lastLineEnd}{indent}\"{key}\": \"{value}\"";
         }
