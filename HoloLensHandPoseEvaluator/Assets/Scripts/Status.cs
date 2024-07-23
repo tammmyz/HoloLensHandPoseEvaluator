@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class StatusUpdater : MonoBehaviour
 {
-    private TMP_Text tmpText;
     private string statusText;
     private string selectedHand = "None";
     private string recordingStatus = "Not recording";
@@ -16,10 +15,9 @@ public class StatusUpdater : MonoBehaviour
 
     void Start()
     {
-        tmpText = GetComponent<TMP_Text>();
         updateStatusText();
     }
-    
+
     public void updateRightHand()
     {
         selectedHand = "Right";
