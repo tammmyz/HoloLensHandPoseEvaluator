@@ -1,5 +1,12 @@
 import matplotlib.pyplot as plt
 
+def visualize_hands(hands, styles=['b','r'], elev=-140, azims=[0, 60, 120, 180], figsize=(15, 20)):
+    fig = plt.figure(figsize=figsize)
+    for (i, azim) in enumerate(azims):
+        ax = fig.add_subplot(1, len(azims), i + 1, projection='3d')
+        for (hand, style) in list(zip(hands, styles)):
+            draw_hand(hand, ax, elev, azim, style)
+
 def visualize_hand(hand, style='b', elev=-140, azims=[0, 60, 120, 180], figsize=(15, 20)):
     fig = plt.figure(figsize=figsize)
     for (i, azim) in enumerate(azims):
