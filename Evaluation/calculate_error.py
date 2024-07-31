@@ -3,7 +3,10 @@ import matplotlib.colors as mcolors
 import matplotlib.pyplot as plt
 import numpy as np
 
-def view_angle_matrix(diff_arr, title, cmap, norm):
+NORM_A = mcolors.Normalize(vmin=0, vmax=120)
+NORM_D = mcolors.Normalize(vmin=0, vmax=300)
+
+def view_angle_matrix(diff_arr, title, cmap, norm=NORM_A):
     fig, ax = plt.subplots(figsize=(30, 10))
 
     # Transpose the array to rotate the graph 90 degrees
@@ -32,7 +35,7 @@ def view_angle_matrix(diff_arr, title, cmap, norm):
 
     plt.show()
 
-def view_distance_matrix(diff_arr, title, cmap, norm):
+def view_distance_matrix(diff_arr, title, cmap, norm=NORM_D):
     fig, ax = plt.subplots(figsize=(30, 10))
 
     # Transpose the array to rotate the graph 90 degrees
