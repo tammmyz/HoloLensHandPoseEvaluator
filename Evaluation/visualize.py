@@ -13,6 +13,18 @@ def visualize_hand(hand, style='b', elev=-140, azims=[0, 60, 120, 180], figsize=
         ax = fig.add_subplot(1, len(azims), i + 1, projection='3d')
         draw_hand(hand, ax, elev, azim, style)
 
+def visualize_frames(hand_arr, frame_0=0, sampling=1, style='b', elev=-140, azim=0, figsize=(15, 40)):
+    fig = plt.figure(figsize=figsize)
+    n_cols = min(len(hand_arr), 4)
+    n_rows = len(hand_arr)//4 + 1
+    for row in range(n_rows):
+        for col in range(n_cols):
+            i = row*n_cols + col
+            if i >= len(hand_arr): break
+            ax = fig.add_subplot(n_rows, n_cols, i + 1,  projection='3d')
+            draw_hand(hand_arr[i], ax, elev, azim, style)
+            ax.title.set_text(f'{frame_0 + sampling*i}')
+
 def draw_hand(vecs, ax, elev, azim, style='b'):
     """
     Function to draw hand based on 21 landmark model
