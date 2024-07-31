@@ -92,7 +92,7 @@ def transform_data(data_arr, convert_to_mm=True):
 
 def rotate_hand(hand):
     wrist = hand[0]
-    index_knuckle = hand[15]
+    index_knuckle = hand[5]
     pinky_knuckle = hand[17]
 
     # Calculate vectors in the plane
